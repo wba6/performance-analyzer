@@ -10,7 +10,7 @@ int main() {
 
     {
         Timer timer;
-        for (int i = 0; i < 2000; ++i) {
+        for (int i = 0; i < 2000000000; ++i) {
             if(i%2 == 0) {
                 i += i%2;
             }
