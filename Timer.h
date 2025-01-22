@@ -54,9 +54,6 @@ private:
 
     // end time of the timer
     std::chrono::time_point<std::chrono::high_resolution_clock> m_endTime;
-
-    // time span between start and end time
-    long m_timeSpan{};
 };
 
 

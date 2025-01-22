@@ -53,10 +53,11 @@ void Timer::stop() {
     auto end = std::chrono::time_point_cast<std::chrono::microseconds>(m_endTime).time_since_epoch().count();
 
     // Calculate the time passed
-    m_timeSpan = end - start;
+    auto duration = end - start;
 
     // Convert to milliseconds
-    m_timeSpan *= 0.001;
+    double ms = duration * 0.001;
 
-    std::cout << "Time passed: " << m_timeSpan << " seconds" << std::endl;
+    std::cout << "Time passed: " << duration << " microseconds" << std::endl;
+    std::cout << "Time passed: " << ms << " milliseconds" << std::endl;
 }
