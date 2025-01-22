@@ -6,14 +6,16 @@
 
 #include <iostream>
 #include "Timer.h"
+#include "Profiler.h"
 
 /*
  * Constructor for the Timer class
  *
- * @param None
+ * @param std::string name : the name of the timer
  * @return void
  */
-Timer::Timer() {
+Timer::Timer(std::string name)
+            : m_name(name) {
     start();
 }
 
@@ -58,6 +60,5 @@ void Timer::stop() {
     // Convert to milliseconds
     double ms = duration * 0.001;
 
-    std::cout << "Time passed: " << duration << " microseconds" << std::endl;
-    std::cout << "Time passed: " << ms << " milliseconds" << std::endl;
+    Profiler::Get().WriteProfile({ m_name, start, end, 0 });
 }

@@ -19,10 +19,10 @@ public:
     /*
      * Constructor for the Timer class
      *
-     * @param None
+     * @param std::string name : the name of the timer
      * @return void
      */
-    Timer();
+    Timer(std::string name);
 
     /*
      * Destructor for the Timer class
@@ -48,6 +48,8 @@ public:
      */
     void stop();
 private:
+    // timer name
+    std::string m_name;
 
     // start time of the timer
     std::chrono::time_point<std::chrono::high_resolution_clock> m_startTime;
