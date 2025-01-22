@@ -7,6 +7,9 @@
 #ifndef PERFORMANCE_ANALYER_TIMER_H
 #define PERFORMANCE_ANALYER_TIMER_H
 
+/*
+ * A timer class to keep track of the time passed between two events
+ */
 class Timer {
 public:
 
