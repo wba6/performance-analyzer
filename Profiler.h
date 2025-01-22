@@ -76,10 +76,8 @@ public:
     /*
      * Constructor for the profiler
      */
-    Profiler()
-            : m_CurrentSession(nullptr), m_ProfileCount(0)
-    {
-    }
+    Profiler();
+
 
     /*
      * Begin a session which will be written to a file upon ending
@@ -89,26 +87,15 @@ public:
      *
      * @return void
      */
-    void BeginSession(const std::string& name, const std::string& filepath = "results.json")
-    {
-        m_OutputStream.open(filepath);
-        WriteHeader();
-        m_CurrentSession = new ProfilerSession{ name };
-    }
+    void BeginSession(const std::string& name, const std::string& filepath = "results.json");
+
 
     /*
      * End the current session and write the results to the file
      *
      * @return void
      */
-    void EndSession()
-    {
-        WriteFooter();
-        m_OutputStream.close();
-        delete m_CurrentSession;
-        m_CurrentSession = nullptr;
-        m_ProfileCount = 0;
-    }
+    void EndSession();
 
     /*
      * Write a profile result to the file
@@ -117,59 +104,29 @@ public:
      *
      * @return void
      */
-    void WriteProfile(const ProfileResult& result)
-    {
-        if (m_ProfileCount++ > 0)
-            m_OutputStream << ",";
+    void WriteProfile(const ProfileResult& result);
 
-        std::string name = result.Name;
-        std::replace(name.begin(), name.end(), '"', '\'');
-
-        m_OutputStream << "{";
-        m_OutputStream << R"("cat":"function",)";
-        m_OutputStream << "\"dur\":" << (result.End - result.Start) << ',';
-        m_OutputStream << R"("name":")" << name << "\",";
-        m_OutputStream << R"("ph":"X",)";
-        m_OutputStream << "\"pid\":0,";
-        m_OutputStream << "\"tid\":" << result.ThreadID << ",";
-        m_OutputStream << "\"ts\":" << result.Start;
-        m_OutputStream << "}";
-
-        m_OutputStream.flush();
-    }
 
     /*
      * Write the header of the file
      *
      * @return void
      */
-    void WriteHeader()
-    {
-        m_OutputStream << R"({"otherData": {},"traceEvents":[)";
-        m_OutputStream.flush();
-    }
+    void WriteHeader();
 
     /*
      * Write the footer of the file
      *
      * @return void
      */
-    void WriteFooter()
-    {
-        m_OutputStream << "]}";
-        m_OutputStream.flush();
-    }
+    void WriteFooter();
 
     /*
      * Get the profiler instance
      *
      * @return Profiler& : the profiler instance
      */
-    static Profiler& Get()
-    {
-        static Profiler instance;
-        return instance;
-    }
+    static Profiler& Get();
 };
 
 
