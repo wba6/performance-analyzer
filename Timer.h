@@ -13,6 +13,37 @@
 class Timer {
 public:
 
+    /*
+     * Constructor for the Timer class
+     *
+     * @param None
+     * @return void
+     */
+    Timer();
+
+    /*
+     * Destructor for the Timer class
+     *
+     * @param None
+     * @return void
+     */
+    ~Timer();
+
+    /*
+     * Start the timer
+     *
+     * @param None
+     * @return void
+     */
+    void start();
+
+    /*
+     * Stop the timer
+     *
+     * @param None
+     * @return void
+     */
+    void stop();
 private:
 
 };
