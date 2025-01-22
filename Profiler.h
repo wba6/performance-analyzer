@@ -48,22 +48,47 @@ struct ProfileResult
     uint32_t ThreadID;
 };
 
+/*
+ * A struct to hold the profiler session
+ *
+ * @param std::string Name : the name of the session
+ */
 struct ProfilerSession
 {
     std::string Name;
 };
 
+/*
+ * A class to hold the profiler
+ */
 class Profiler {
 private:
+    // the current session
     ProfilerSession* m_CurrentSession;
+
+    // the output stream
     std::ofstream m_OutputStream;
+
+    // the profile count
     int m_ProfileCount;
 public:
+
+    /*
+     * Constructor for the profiler
+     */
     Profiler()
             : m_CurrentSession(nullptr), m_ProfileCount(0)
     {
     }
 
+    /*
+     * Begin a session which will be written to a file upon ending
+     *
+     * @param std::string name : the name of the session
+     * @param std::string filepath : the file path to write the session to
+     *
+     * @return void
+     */
     void BeginSession(const std::string& name, const std::string& filepath = "results.json")
     {
         m_OutputStream.open(filepath);
@@ -71,6 +96,11 @@ public:
         m_CurrentSession = new ProfilerSession{ name };
     }
 
+    /*
+     * End the current session and write the results to the file
+     *
+     * @return void
+     */
     void EndSession()
     {
         WriteFooter();
@@ -80,6 +110,13 @@ public:
         m_ProfileCount = 0;
     }
 
+    /*
+     * Write a profile result to the file
+     *
+     * @param ProfileResult result : the profile result to write
+     *
+     * @return void
+     */
     void WriteProfile(const ProfileResult& result)
     {
         if (m_ProfileCount++ > 0)
@@ -101,18 +138,33 @@ public:
         m_OutputStream.flush();
     }
 
+    /*
+     * Write the header of the file
+     *
+     * @return void
+     */
     void WriteHeader()
     {
         m_OutputStream << R"({"otherData": {},"traceEvents":[)";
         m_OutputStream.flush();
     }
 
+    /*
+     * Write the footer of the file
+     *
+     * @return void
+     */
     void WriteFooter()
     {
         m_OutputStream << "]}";
         m_OutputStream.flush();
     }
 
+    /*
+     * Get the profiler instance
+     *
+     * @return Profiler& : the profiler instance
+     */
     static Profiler& Get()
     {
         static Profiler instance;
