@@ -50,13 +50,13 @@ public:
 private:
 
     // start time of the timer
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_startTime;
 
     // end time of the timer
-    std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> m_endTime;
 
     // time span between start and end time
-    std::chrono::duration<double> time_span;
+    long m_timeSpan{};
 };
 
 
