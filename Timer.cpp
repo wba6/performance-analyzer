@@ -4,7 +4,6 @@
  * Author wba6
  */
 
-#include <iostream>
 #include "Timer.h"
 #include "Profiler.h"
 
@@ -26,7 +25,9 @@ Timer::Timer(std::string name)
  * @return void
  */
 Timer::~Timer() {
-    stop();
+    if(!m_stopped) {
+        stop();
+    }
 }
 
 /*
@@ -38,6 +39,7 @@ Timer::~Timer() {
 void Timer::start() {
     // Get the start time
     m_startTime = std::chrono::high_resolution_clock::now();
+    m_stopped = false;
 }
 
 /*
@@ -61,4 +63,5 @@ void Timer::stop() {
     double ms = duration * 0.001;
 
     Profiler::Get().WriteProfile({ m_name, start, end, 0 });
+    m_stopped = true;
 }

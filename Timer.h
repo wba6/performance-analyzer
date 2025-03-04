@@ -9,6 +9,7 @@
 
 #include <memory>
 #include <chrono>
+#include <string>
 
 /*
  * A timer class to keep track of the time passed between two events
@@ -56,6 +57,9 @@ private:
 
     // end time of the timer
     std::chrono::time_point<std::chrono::high_resolution_clock> m_endTime;
+
+    // has the timer already stoped
+    bool m_stopped;
 };
 
 
