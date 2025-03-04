@@ -8,6 +8,8 @@
 #include "Timer.h"
 #include "Profiler.h"
 
+
+extern "C" int containsASM(const char* s1, const char* s2);
 /*
  * A function to show an example of how to use the performance timer
  *
