@@ -25,6 +25,7 @@ Timer::Timer(std::string name)
  * @return void
  */
 Timer::~Timer() {
+    // check if timer was manually stopped
     if(!m_stopped) {
         stop();
     }
@@ -65,3 +66,4 @@ void Timer::stop() {
     Profiler::Get().WriteProfile({ m_name, start, end, 0 });
     m_stopped = true;
 }
+

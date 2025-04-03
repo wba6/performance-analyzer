@@ -17,36 +17,6 @@
 
 
 
-#ifdef PROFILING_ENABLED
-
-/*
- * A macro to get the function signature
- */
-#if defined(_MSC_VER)
-#define FUNCTION_SIGNATURE __FUNCSIG__
-#elif defined(__GNUC__) || defined(__clang__)
-#define FUNCTION_SIGNATURE __PRETTY_FUNCTION__
-#else
-#define FUNCTION_SIGNATURE __func__
-#endif
-
-/*
- * A macro to create a profile scope
- *
- * @param std::string name : the name of the profile
- */
-#define PROFILE_SCOPE(name) Timer timer##__LINE__(name)
-
-/*
- * A macro to create a profile function
- */
-#define PROFILE_FUNCTION() PROFILE_SCOPE(FUNCTION_SIGNATURE)
-#else
-#define PROFILE_SCOPE(name)
-#define PROFILE_FUNCTION()
-#endif
-
-
 /*
  * A struct to hold the profile result
  *
@@ -134,6 +104,15 @@ public:
      * @return void
      */
     void WriteFooter();
+
+    /*
+     * Insert a custom time into the file
+     *
+     * @param name the name of the custom time
+     * @param duration the length in ms of time to put in the output
+     * @return void
+     */
+    void InsertCustomTime(std::string name, double duration);
 
     /*
      * Get the profiler instance
