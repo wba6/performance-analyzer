@@ -85,7 +85,7 @@ void Profiler::WriteFooter() {
  * Insert a custom time into the file
  *
  * @param name the name of the custom time
- * @param duration the length in ns of time to put in the output
+ * @param duration the length in µs of time to put in the output
  * @return void
  */
 void Profiler::InsertCustomTime(std::string name, double duration) {
