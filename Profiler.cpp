@@ -5,6 +5,7 @@
  */
 
 #include "Profiler.h"
+#include <ratio>
 
 /*
  * Begin a session which will be written to a file upon ending
@@ -78,6 +79,27 @@ void Profiler::WriteHeader() {
 void Profiler::WriteFooter() {
     m_OutputStream << "]}";
     m_OutputStream.flush();
+}
+
+/*
+ * Insert a custom time into the file
+ *
+ * @param name the name of the custom time
+ * @param duration the length in µs of time to put in the output
+ * @return void
+ */
+void Profiler::InsertCustomTime(std::string name, double duration) {
+    // Get the end time
+    auto endTime = std::chrono::high_resolution_clock::now();
+    auto time_length = std::chrono::duration<double, std::micro>(duration);
+
+    auto startTime = endTime - time_length;
+
+    // Get the start and end time in microseconds
+    auto start = std::chrono::time_point_cast<std::chrono::microseconds>(startTime).time_since_epoch().count();
+    auto end = std::chrono::time_point_cast<std::chrono::microseconds>(endTime).time_since_epoch().count();
+
+    WriteProfile({ name, start, end, 0 });
 }
 
 /*
